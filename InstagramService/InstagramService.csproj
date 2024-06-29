@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<PackageId>InstaService</PackageId>
+		<Description>A wrapper library on top of the InstagramApiSharp library. The library provides simple functionality for downloading media files from Instagram.</Description>
+		<Authors>Roman Binyukov | Quikler</Authors>
+		<Copyright>Copyright © 2024 Roman Binyukov | Quikler</Copyright>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/Quikler/InstagramService</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/Quikler/InstagramService</RepositoryUrl>
+		<PackageTags>
+			Instagram InstagramDownloader InstagramMediaDownloader
+			InstagramDownload Insta InstaDownloader InstaMediaDownloader
+			InstaService InstagramService InstagramMediaService
+		</PackageTags>
+		<PackageVersion>1.0.61</PackageVersion>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="InstagramApiSharp" Version="1.7.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="README.md">
+			<Pack>true</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+</Project>
