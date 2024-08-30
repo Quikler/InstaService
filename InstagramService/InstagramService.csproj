@@ -14,7 +14,7 @@
 			InstagramDownload Insta InstaDownloader InstaMediaDownloader
 			InstaService InstagramService InstagramMediaService
 		</PackageTags>
-		<PackageVersion>1.0.61</PackageVersion>
+		<PackageVersion>1.0.62</PackageVersion>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 

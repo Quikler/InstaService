@@ -9,13 +9,13 @@ namespace InstagramService.Classes
     public class InstaService
     {
         public IInstaApi Api { get; }
-        public InstaMediaProcessor MediaHelper { get; }
+        public InstaMediaProcessor MediaProcessor { get; }
         public InstaStreamProcessor StreamProcessor { get; }
 
         public InstaService(IInstaApi api)
         {
             Api = api;
-            MediaHelper = new InstaMediaProcessor(Api);
+            MediaProcessor = new InstaMediaProcessor(Api);
             StreamProcessor = new InstaStreamProcessor(Api);
         }
 

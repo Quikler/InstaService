@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System;
 
 namespace InstagramService.Classes
 {
@@ -48,15 +49,21 @@ namespace InstagramService.Classes
             if (!System.Uri.TryCreate(url, System.UriKind.Absolute, out System.Uri resultUrl))
                 return Result.Fail<InstaMedia>("Invalid url");
 
-            IResult<string> mediaIdResult = await Api.MediaProcessor.GetMediaIdFromUrlAsync(resultUrl);
-            if (!mediaIdResult.Succeeded)
-                return Result.Fail<InstaMedia>(mediaIdResult.Info.ToString());
+            /*if (!System.Uri.TryCreate(url, System.UriKind.RelativeOrAbsolute, out System.Uri resultUrl))
+                return Result.Fail<InstaMedia>("Invalid url");*/
 
-            IResult<InstaMedia> mediaResult = await Api.MediaProcessor.GetMediaByIdAsync(mediaIdResult.Value);
-            if (!mediaResult.Succeeded)
-                return Result.Fail<InstaMedia>(mediaIdResult.Info.ToString());
+            /*var idRes = await Api.MediaProcessor.GetMediaIdFromUrlAsync(new Uri("https://www.instagram.com/p/C9nOtyisgm2NPYagc1PPXUhUEVWAhdcSSluLTE0/"));
+            var media = await Api.MediaProcessor.GetMediaByIdAsync(idRes.Value);*/
 
-            return mediaResult;
+            IResult<string> mediaIdFromUrlResult = await Api.MediaProcessor.GetMediaIdFromUrlAsync(resultUrl);
+            if (!mediaIdFromUrlResult.Succeeded)
+                return Result.Fail<InstaMedia>(mediaIdFromUrlResult.Info.Message);
+
+            IResult<InstaMedia> mediaByIdResult = await Api.MediaProcessor.GetMediaByIdAsync(mediaIdFromUrlResult.Value);
+            if (!mediaByIdResult.Succeeded)
+                return Result.Fail<InstaMedia>(mediaByIdResult.Info.Message);
+
+            return mediaByIdResult;
         }
 
         public async Task<FileInfo> DownloadMediaAsync(InstaMediaStream instaMediaStream, 
@@ -65,7 +72,7 @@ namespace InstagramService.Classes
             string extension = instaMediaStream.MediaType == InstaMediaType.Image ? imageFormat : videoFormat;
             string finalExtension = extension.Contains('.') ? extension : $".{extension}";
 
-            string filePath = Path.Combine(destinationFolderPath, $"{fileName}.{finalExtension}");
+            string filePath = Path.Combine(destinationFolderPath, $"{fileName}{finalExtension}");
             FileInfo fileInfo = new FileInfo(filePath);
 
             using (Stream stream = fileInfo.OpenWrite())
